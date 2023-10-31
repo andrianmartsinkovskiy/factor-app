@@ -57,14 +57,38 @@
 
       <div class="menu-section">
         <div class="menu-section-bar grid-2">
-          <div class="menu-section-bar_item">Factor Blend</div>
-          <div class="menu-section-bar_item menu-section-bar_item-active">Factor Filter</div>
+          <div
+            id="sort-section-btn"
+            data-type="sort"
+            class="menu-section-bar_item menu-section-bar_item-active"
+            onclick="changeActiveSection('sort')"
+          >
+            Factor Blend
+          </div>
+          <div
+            id="filter-section-btn"
+            data-type="filter"
+            class="menu-section-bar_item"
+            onclick="changeActiveSection('filter')"
+          >
+            Factor Filter
+          </div>
         </div>
 
-        <div class="menu-section-content">
+        <div id="sort-section" class="menu-section-content">
           <div class="filter-header">
             <div>Factor</div>
             <div>Prefer</div>
+          </div>
+          <div id="sort-select-wrap" class="filter-select-wrap">
+
+          </div>
+        </div>
+
+        <div id="filter-section" class="menu-section-content">
+          <div class="filter-header">
+            <div>Factor</div>
+            <div>Range</div>
           </div>
           <div id="filter-select-wrap" class="filter-select-wrap">
 
@@ -75,7 +99,7 @@
 
 
     <div class="menu-buttons">
-      <button class="menu-btn">Reset All</button>
+      <button class="menu-btn" onclick="resetAllHandler()">Reset All</button>
       <button class="menu-btn">Save As</button>
       <button class="menu-btn menu-btn-blue">Save</button>
     </div>
@@ -91,35 +115,24 @@
       <div class="view-top-item">+</div>
     </div>
 
-    <div class="view-content">
-      <div class="view-content-header">
+   <div id="picker-wrap">
+     <input type="file" accept=".csv" id="picker">
+     <label for="picker" class="please-select-file">
+       Please upload CSV file
+     </label>
+   </div>
+
+    <div class="view-content" id="view-content">
+      <div id="view-content-header" class="view-content-header">
         <div>University</div>
         <div>State</div>
         <div>Factor Blend</div>
-        <div>
-          Distance
-          <input type="range" id="distance-range" name="distance-range" min="0" max="10" />
-        </div>
-        <div>
-          Rank
-          <input type="range" id="rank-range" name="rank-range" min="0" max="10" />
-        </div>
-        <div>
-          Air Per Students
-          <input type="range" id="air-range" name="air-range" min="0" max="10" />
-        </div>
-        <div>
-          Student Faculty Ratio
-          <input type="range" id="ratio-range" name="ration-range" min="0" max="10" />
-        </div>
+
+
+
       </div>
 
       <div id="view-content-table" class="view-content-table">
-        <input type="file" accept=".csv" id="picker">
-
-        <label for="picker" class="please-select-file">
-          Please upload CSV file
-        </label>
       </div>
 
 
