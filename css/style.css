@@ -236,3 +236,21 @@ body {
 }
 
 
+.or-div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.set-div {
+  height: 200px;
+  border: 2px solid rgba(14,25, 155, 0.5);
+  background-color: rgba(14,25, 155, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
