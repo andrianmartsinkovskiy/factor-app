@@ -1,5 +1,28 @@
 const valuesRegExp = /(?:\"([^\"]*(?:\"\"[^\"]*)*)\")|([^\",]+)/g
 
+let SELECTED_TYPE = 'null'
+let SELECTED_REGION = 'All'
+let SELECTED_SETTING = 'All'
+
+function changeSelectedType (e) {
+  SELECTED_TYPE = e.value
+  filterElementsHandler()
+}
+
+function changeSelectedRegion (e) {
+  SELECTED_REGION = e.value
+  filterElementsHandler()
+}
+
+
+function changeSelectedSetting (e) {
+  SELECTED_SETTING = e.value
+  filterElementsHandler()
+}
+
+
+const REGION_SELECT_NODE = document.getElementById("region-select")
+const SETTING_SELECT_NODE = document.getElementById("setting-select")
 const SORT_SECTION = document.getElementById("sort-section")
 const PICKER_WRAP = document.getElementById("picker-wrap")
 const SORT_SECTION_BTN = document.getElementById("sort-section-btn")
@@ -59,7 +82,8 @@ window.onload = () => {
         j++;
       }
       element.blend = 0
-      element.airPerStudents = Number(element.totalGrantAid) / Number(element.totalStudentPop)
+      element.airPerStudents = Number(element.totalGrantAid) / Number(element.undergradPop)
+      element.airPerStudents = Number(element.airPerStudents.toFixed(2))
       elements.push(element);
     }
 
@@ -70,8 +94,47 @@ window.onload = () => {
     ACTIVE_ELEMENTS = elements
     renderLayout()
     getMaxValues()
-
+    renderRegionValue()
+    renderSettingValue()
   }
+}
+
+function renderRegionValue () {
+  REGION_SELECT_NODE.innerText = ''
+
+  const values = ['All']
+  ALL_ELEMENTS.forEach(item => {
+    if (!values.includes(item.region)) {
+      values.push(item.region)
+    }
+  })
+
+  values.forEach(key => {
+    const option = document.createElement('option')
+    option.value = key
+    option.innerText = key
+
+    REGION_SELECT_NODE.appendChild(option)
+  })
+}
+
+function renderSettingValue () {
+  SETTING_SELECT_NODE.innerText = ''
+
+  const values = ['All']
+  ALL_ELEMENTS.forEach(item => {
+    if (!values.includes(item.campusSetting)) {
+      values.push(item.campusSetting)
+    }
+  })
+
+  values.forEach(key => {
+    const option = document.createElement('option')
+    option.value = key
+    option.innerText = key
+
+    SETTING_SELECT_NODE.appendChild(option)
+  })
 }
 
 function filterElementsHandler () {
@@ -101,10 +164,23 @@ function filterElementsHandler () {
           }
         }
       }
+
+      if (SELECTED_TYPE !== 'null' && SELECTED_TYPE !== row.collegeType) {
+        isActive = false
+      }
+
+      if (SELECTED_REGION !== 'All' && SELECTED_REGION !== row.region) {
+        isActive = false
+      }
+
+      if (SELECTED_SETTING !== 'All' && SELECTED_SETTING !== row.campusSetting) {
+        isActive = false
+      }
     })
 
     return isActive
   })
+
 
   ACTIVE_ELEMENTS = newValues
   calculateBlend()
@@ -379,7 +455,7 @@ const calculateBlend = () => {
 
   ACTIVE_ELEMENTS = ACTIVE_ELEMENTS
     .map(item => {
-      item.blend = onePercent * item.blend
+      item.blend = Number((onePercent * item.blend).toFixed(1))
       return item
     })
     .sort((a,b) => a.blend - b.blend).reverse()

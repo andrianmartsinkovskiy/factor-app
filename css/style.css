@@ -48,7 +48,7 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 450px 1fr;
+  grid-template-columns: 350px 1fr;
   height: 100vh;
 }
 
@@ -188,7 +188,7 @@ body {
 .view-row {
   display: grid;
   grid-template-columns: 4fr 1fr 2fr 2fr 2fr 2fr 2fr 2fr;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .view-row > div {

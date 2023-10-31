@@ -23,10 +23,10 @@
           <div class="filter-top-item">
             <div>Type</div>
             <label>
-              <select class="select-default" name="select">
-                <option value="value1">All</option>
-                <option value="value2">Public</option>
-                <option value="value2">Private</option>
+              <select onchange="changeSelectedType(this)" class="select-default" name="select">
+                <option value="null">All</option>
+                <option value="Public">Public</option>
+                <option value="Private not-for-profit">Private</option>
               </select>
             </label>
           </div>
@@ -34,10 +34,8 @@
           <div class="filter-top-item">
             <div>Region</div>
             <label>
-              <select class="select-default" name="select">
-                <option value="value1">All</option>
-                <option value="value2">Public</option>
-                <option value="value2">Private</option>
+              <select onchange="changeSelectedRegion(this)" id="region-select" class="select-default" name="select">
+                <option value="All">All</option>
               </select>
             </label>
           </div>
@@ -45,10 +43,8 @@
           <div class="filter-top-item">
             <div>Setting</div>
             <label>
-              <select class="select-default" name="select">
-                <option value="value1">All</option>
-                <option value="value2">Public</option>
-                <option value="value2">Private</option>
+              <select onchange="changeSelectedSetting(this)" id="setting-select" class="select-default" name="select">
+                <option value="All">All</option>
               </select>
             </label>
           </div>
