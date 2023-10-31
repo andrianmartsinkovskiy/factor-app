@@ -36,7 +36,7 @@ const FILTER_SELECT_WRAP = document.getElementById("filter-select-wrap")
 const FILTER_ELEMENTS = [
   {id: 1, name: "Distance", label: "distance", isSelected: false, weight: 1, min: "", max: ""},
   {id: 2, name: "Rank", label: "rank", isSelected: false, weight: 1, min: "", max: ""},
-  {id: 3, name: "Air Per Students", label: "airPerStudents", isSelected: false, weight: 1, min: "", max: ""},
+  {id: 3, name: "Aid Per Students", label: "airPerStudents", isSelected: false, weight: 1, min: "", max: ""},
   {id: 4, name: "Faculty Ratio", label: "studentFacultyRatio", isSelected: false, weight: 1, min: "", max: ""},
   {id: 5, name: "Year Founded", label: "yearFounded", isSelected: false, weight: 1, min: "", max: ""},
   {id: 6, name: "Undergrad Pop", label: "undergradPop", isSelected: false, weight: 1, min: "", max: ""},
@@ -88,6 +88,8 @@ window.onload = () => {
     }
 
     elements.shift()
+
+    console.log(elements, 'elements')
 
     PICKER_WRAP.style.display = 'none'
     ALL_ELEMENTS = elements
@@ -442,10 +444,10 @@ const calculateBlend = () => {
         }
 
         const weight = normalized * filterElement.weight
-        scoreFactor = scoreFactor + Math.sqrt(weight)
+        scoreFactor = scoreFactor + (weight * weight)
 
       })
-    item.blend = isNaN(scoreFactor) ? 0 : scoreFactor
+    item.blend = isNaN(scoreFactor) ? 0 : Math.sqrt(scoreFactor)
     if (item.blend > maxBlendValue) {
       maxBlendValue = item.blend
     }
@@ -455,7 +457,7 @@ const calculateBlend = () => {
 
   ACTIVE_ELEMENTS = ACTIVE_ELEMENTS
     .map(item => {
-      item.blend = Number((onePercent * item.blend).toFixed(1))
+      item.blend = Number((onePercent * item.blend).toFixed(2))
       return item
     })
     .sort((a,b) => a.blend - b.blend).reverse()
